@@ -1,0 +1,14 @@
+[Unit]
+Description=Telegram DC TPROXY policy for the server-44 LAN Smart Edge
+After=network-online.target xray-lan-edge.service
+Wants=network-online.target
+Requires=xray-lan-edge.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/xray-lan-edge-telegram-policy.sh --apply
+ExecStop=/usr/local/sbin/xray-lan-edge-telegram-policy.sh --rollback
+
+[Install]
+WantedBy=multi-user.target

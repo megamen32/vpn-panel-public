@@ -1,0 +1,24 @@
+[Unit]
+Description=VPN Panel Smart DNS DoH/DoT gateway (Go)
+After=network-online.target autovpnallowip.service
+Wants=network-online.target
+
+[Service]
+User=roomhacker
+Group=roomhacker
+WorkingDirectory=/opt/smart-dns
+Environment=SMART_DNS_CONFIG=/opt/smart-dns/config.json
+ExecStart=/usr/local/bin/smartdns
+Restart=always
+RestartSec=3
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/smart-dns
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,35 @@
+[Unit]
+Description=Observe Russia-affected services across direct, SNI, and HTTP proxy lanes
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=roomhacker
+Group=roomhacker
+WorkingDirectory=/home/roomhacker/apps/vpn-panel
+Environment=NODE_ENV=production
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+UMask=0027
+ExecStartPre=/usr/bin/install -d -m 0750 /home/roomhacker/apps/vpn-panel/data
+ExecStart=/usr/local/bin/node /home/roomhacker/apps/vpn-panel/dist/cli/probe-restricted-services.js --attempts=3 --lane-concurrency=2 --output=/home/roomhacker/apps/vpn-panel/data/restricted-services-status.json
+TimeoutStartSec=30min
+Nice=10
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectClock=true
+ProtectControlGroups=true
+ProtectHostname=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+ReadWritePaths=/home/roomhacker/apps/vpn-panel/data

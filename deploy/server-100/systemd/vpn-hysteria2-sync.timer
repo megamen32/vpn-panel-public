@@ -1,0 +1,11 @@
+[Unit]
+Description=Keep VPN transport user access synchronized
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+RandomizedDelaySec=15
+Persistent=true
+
+[Install]
+WantedBy=timers.target

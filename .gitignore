@@ -1,0 +1,57 @@
+node_modules
+dist
+.env
+*.bak_*
+bench-*
+bench-results/
+logs/
+.mac-test/
+.qoder/
+.tmp/
+.playwright-cli/
+trash/
+
+# Generated from secure.json and DB immediately before regional relay deploy.
+deploy/server-100/xray/config.json
+
+infra/smart-edge/__pycache__/
+*.pyc
+
+data/smart-edge-state.json
+data/smart-edge-targets.json
+data/restricted-services-status.json
+data/github-route-autoheal.*
+
+# build cache for smartdns-go test binary (copies test-telegram-https.go
+# outside the module so it builds with the system Go toolchain)
+scripts/smartdns-go/.build/
+
+# generated per-host configs from probe runs
+vpn-testing/configs/
+
+# test result outputs
+vpn-testing/results/
+output/
+
+# Local agent permissions and generated Graphify state
+.claude/settings.local.json
+.claude/skills/graphify/.graphify_version
+graphify-out/
+
+# Local development state and test receipts.
+.serena/
+.agents/at/
+.agents/shared-session/compaction/
+.agents/tasks/.*.time.json
+.fast-agent/
+.test2git/
+android-test-agent/build/
+
+# Ad-hoc timestamped backups belong in ~/.gptadmin/file-backups, never the repo.
+*.bak.*
+
+# Local CLI state must never enter the repository.
+.local/
+
+# Real sing-box transport config: contains live VLESS Reality credentials.
+deploy/server-44/sing-box/config.json

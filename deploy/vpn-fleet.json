@@ -1,0 +1,56 @@
+{
+  "vpn2": {
+    "label": "Germany VPN",
+    "ssh": "vpn2",
+    "domain": "vpn2.bezrabotnyi.com",
+    "address": "212.192.31.128",
+    "endpoint": "de-hysteria2",
+    "xrayConfigPath": "/usr/local/etc/xray/config.json",
+    "realityPort": 23443,
+    "realityBind": "127.0.0.1",
+    "nginxStream": true,
+    "sysctl": [
+      "/etc/sysctl.d/90-vpn2-conntrack.conf",
+      "/etc/sysctl.d/99-vpn2-nf-tune.conf"
+    ]
+  },
+  "vusa": {
+    "label": "USA VPN",
+    "ssh": "vusa",
+    "domain": "vusa.bezrabotnyi.com",
+    "address": "185.240.120.152",
+    "endpoint": "us-hysteria2",
+    "xrayConfigPath": "/usr/local/etc/xray/config.json",
+    "realityPort": 23443,
+    "realityBind": "127.0.0.1",
+    "nginxStream": true,
+    "sysctl": []
+  },
+  "finland": {
+    "label": "Finland Helsinki VPN",
+    "ssh": "root@31.76.43.193",
+    "domain": "fi-vpn.bezrabotnyi.com",
+    "address": "31.76.43.193",
+    "endpoint": "fi-hysteria2",
+    "xrayConfigPath": "/etc/xray/config.json",
+    "sshPasswordEnv": "FIN_VPN_PASSWORD",
+    "realityPort": 23443,
+    "realityBind": "127.0.0.1",
+    "nginxStream": true,
+    "sysctl": [
+      "/etc/sysctl.d/60-helsinki-vpn-small-vps.conf"
+    ],
+    "serviceClients": [
+      "<redacted-client-uuid>"
+    ],
+    "serviceClientsNote": "UUID used by server-100 relay outbound `to-fi-reality` to authenticate to this host's Reality. Must stay in the Reality client list or the Finland relay endpoint stops passing traffic.",
+    "nginxStreamNote": "nginx + libnginx-mod-stream installed 2026-10-09; Ubuntu's nginx build has no ngx_stream_module by default"
+  },
+  "_canonical": {
+    "xrayConfigPath": "/etc/vpn-panel/xray/config.json",
+    "realityPort": 23443,
+    "realityBind": "127.0.0.1",
+    "nginxStream": true,
+    "note": "DPI blocks every public port except 443, so nginx must own 443 and rotate by SNI to a loopback Reality port. Per-host identity (Reality keypair, cert domain, mask SNI, sysctl tuning) stays host-specific."
+  }
+}

@@ -1,0 +1,13 @@
+[Unit]
+Description=Run due VPN transport measurements from test-plan.json
+After=network-online.target android-adb-reconnect.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=roomhacker
+Group=roomhacker
+WorkingDirectory=/home/roomhacker/apps/vpn-panel
+UMask=0077
+ExecStart=/home/roomhacker/apps/vpn-panel/scripts/run-target-probe-scheduler.py --due
+

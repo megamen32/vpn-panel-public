@@ -1,0 +1,11 @@
+[Unit]
+Description=Recover HAOS Smart Edge local listeners without upstream restart loops
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=roomhacker
+Group=roomhacker
+ExecStart=/usr/local/lib/vpn-panel/telegram-lane-self-heal.sh --once
+TimeoutStartSec=5min

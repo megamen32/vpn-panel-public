@@ -1,0 +1,601 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-07-20T13:02:49.029Z",
+  "description": "Reviewed service-level routing catalog for Russia. External feeds and repeated live probes are evidence only and never change routes automatically.",
+  "services": [
+    {
+      "id": "telegram",
+      "label": "Telegram",
+      "enabled": true,
+      "probeUrl": "https://telegram.org/",
+      "restriction": "Reviewed local-only route for transport-level disruption; HTTP probes cover only the web front",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "telegram.org"
+        },
+        {
+          "match": "suffix",
+          "value": "telegram.me"
+        },
+        {
+          "match": "suffix",
+          "value": "t.me"
+        },
+        {
+          "match": "suffix",
+          "value": "tdesktop.com"
+        },
+        {
+          "match": "suffix",
+          "value": "telesco.pe"
+        },
+        {
+          "match": "suffix",
+          "value": "telegra.ph"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2",
+          "vusa"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "discord",
+      "label": "Discord",
+      "enabled": true,
+      "probeUrl": "https://discord.com/",
+      "restriction": "Reviewed local-only route for transport-level disruption; HTTP probes cover only the web front",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "discord.com"
+        },
+        {
+          "match": "suffix",
+          "value": "discord.gg"
+        },
+        {
+          "match": "suffix",
+          "value": "discordapp.com"
+        },
+        {
+          "match": "suffix",
+          "value": "discordapp.net"
+        },
+        {
+          "match": "suffix",
+          "value": "discord.media"
+        },
+        {
+          "match": "suffix",
+          "value": "discordstatus.com"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "whatsapp",
+      "label": "WhatsApp",
+      "enabled": true,
+      "probeUrl": "https://www.whatsapp.com/",
+      "restriction": "Reviewed local-only route; calls and app traffic require separate end-to-end validation",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "whatsapp.com"
+        },
+        {
+          "match": "suffix",
+          "value": "whatsapp.net"
+        },
+        {
+          "match": "suffix",
+          "value": "wa.me"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "facebook",
+      "label": "Facebook / Messenger / Threads",
+      "enabled": true,
+      "probeUrl": "https://www.facebook.com/",
+      "restriction": "Reviewed local-only route; current availability must be confirmed by repeated probes",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "facebook.com"
+        },
+        {
+          "match": "suffix",
+          "value": "facebook.net"
+        },
+        {
+          "match": "suffix",
+          "value": "fb.com"
+        },
+        {
+          "match": "suffix",
+          "value": "fbcdn.net"
+        },
+        {
+          "match": "suffix",
+          "value": "fbsbx.com"
+        },
+        {
+          "match": "suffix",
+          "value": "messenger.com"
+        },
+        {
+          "match": "suffix",
+          "value": "m.me"
+        },
+        {
+          "match": "suffix",
+          "value": "threads.net"
+        },
+        {
+          "match": "suffix",
+          "value": "threads.com"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "instagram",
+      "label": "Instagram",
+      "enabled": true,
+      "probeUrl": "https://www.instagram.com/",
+      "restriction": "Reviewed local-only route; current availability must be confirmed by repeated probes",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "instagram.com"
+        },
+        {
+          "match": "suffix",
+          "value": "cdninstagram.com"
+        },
+        {
+          "match": "suffix",
+          "value": "ig.me"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "enabled": true,
+      "probeUrl": "https://www.youtube.com/",
+      "restriction": "Reviewed local-only route; web and media delivery must be measured separately",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "youtube.com"
+        },
+        {
+          "match": "suffix",
+          "value": "youtu.be"
+        },
+        {
+          "match": "suffix",
+          "value": "youtube-nocookie.com"
+        },
+        {
+          "match": "suffix",
+          "value": "googlevideo.com"
+        },
+        {
+          "match": "suffix",
+          "value": "ytimg.com"
+        },
+        {
+          "match": "suffix",
+          "value": "ggpht.com"
+        },
+        {
+          "match": "suffix",
+          "value": "gvt1.com"
+        },
+        {
+          "match": "suffix",
+          "value": "gvt2.com"
+        },
+        {
+          "match": "suffix",
+          "value": "youtubei.googleapis.com"
+        },
+        {
+          "match": "suffix",
+          "value": "youtube.googleapis.com"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "x-twitter",
+      "label": "X / Twitter",
+      "enabled": true,
+      "probeUrl": "https://x.com/",
+      "restriction": "Reviewed local-only route; current availability must be confirmed by repeated probes",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "x.com"
+        },
+        {
+          "match": "suffix",
+          "value": "twitter.com"
+        },
+        {
+          "match": "suffix",
+          "value": "t.co"
+        },
+        {
+          "match": "suffix",
+          "value": "twimg.com"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "grok-xai",
+      "label": "Grok / xAI",
+      "enabled": true,
+      "probeUrl": "https://grok.com/",
+      "restriction": "Reviewed local-only route with separate probes from X despite related delivery paths",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "grok.com"
+        },
+        {
+          "match": "suffix",
+          "value": "x.ai"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "chatgpt-openai",
+      "label": "ChatGPT / OpenAI",
+      "enabled": true,
+      "probeUrl": "https://chatgpt.com/",
+      "restriction": "Reviewed proxy route for provider-region availability; HTTP reachability is not full app validation",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "chatgpt.com"
+        },
+        {
+          "match": "suffix",
+          "value": "openrouter.ai"
+        },
+        {
+          "match": "suffix",
+          "value": "openai.com"
+        },
+        {
+          "match": "suffix",
+          "value": "oaistatic.com"
+        },
+        {
+          "match": "suffix",
+          "value": "oaiusercontent.com"
+        },
+        {
+          "match": "suffix",
+          "value": "oaistatsig.com"
+        },
+        {
+          "match": "suffix",
+          "value": "openaimerge.com"
+        },
+        {
+          "match": "suffix",
+          "value": "workos.com"
+        },
+        {
+          "match": "suffix",
+          "value": "workoscdn.com"
+        }
+      ],
+      "workIn": "both",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "claude-anthropic",
+      "label": "Claude / Anthropic",
+      "enabled": true,
+      "probeUrl": "https://claude.ai/",
+      "restriction": "Reviewed proxy route for provider-region availability; HTTP reachability is not full app validation",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "claude.ai"
+        },
+        {
+          "match": "suffix",
+          "value": "claude.com"
+        },
+        {
+          "match": "suffix",
+          "value": "anthropic.com"
+        }
+      ],
+      "workIn": "both",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "google-antigravity",
+      "label": "Google Antigravity",
+      "enabled": true,
+      "probeUrl": "https://antigravity.google/",
+      "restriction": "VUSA-only route for the Antigravity editor backend; shared Google authentication and static domains stay on the normal policy route",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "antigravity.google"
+        },
+        {
+          "match": "suffix",
+          "value": "gweb-jetski.appspot.com"
+        },
+        {
+          "match": "suffix",
+          "value": "gweb-jetski.uc.r.appspot.com"
+        }
+      ],
+      "workIn": "both",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vusa"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "github-copilot",
+      "label": "GitHub Copilot (VS Code Chat)",
+      "enabled": true,
+      "probeUrl": "https://githubcopilot.com/",
+      "restriction": "Disabled for all users by default; an individual user policy can enable the VPN route for GitHub and Copilot.",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "github.com"
+        },
+        {
+          "match": "suffix",
+          "value": "api.github.com"
+        },
+        {
+          "match": "suffix",
+          "value": "githubcopilot.com"
+        },
+        {
+          "match": "suffix",
+          "value": "githubassets.com"
+        },
+        {
+          "match": "suffix",
+          "value": "githubusercontent.com"
+        },
+        {
+          "match": "suffix",
+          "value": "default.exp-tas.com"
+        }
+      ],
+      "workIn": "both",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "signal",
+      "label": "Signal",
+      "enabled": true,
+      "probeUrl": "https://signal.org/",
+      "restriction": "Reviewed local-only route; current availability must be confirmed by repeated probes",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "signal.org"
+        },
+        {
+          "match": "suffix",
+          "value": "signal.art"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "viber",
+      "label": "Viber",
+      "enabled": true,
+      "probeUrl": "https://www.viber.com/",
+      "restriction": "Reviewed local-only route; current availability must be confirmed by repeated probes",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "viber.com"
+        },
+        {
+          "match": "suffix",
+          "value": "viber.me"
+        },
+        {
+          "match": "suffix",
+          "value": "viber.net"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "linkedin",
+      "label": "LinkedIn",
+      "enabled": true,
+      "probeUrl": "https://www.linkedin.com/",
+      "restriction": "Reviewed local-only route; current availability must be confirmed by repeated probes",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "linkedin.com"
+        },
+        {
+          "match": "suffix",
+          "value": "licdn.com"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    },
+    {
+      "id": "tiktok",
+      "label": "TikTok",
+      "enabled": true,
+      "probeUrl": "https://www.tiktok.com/",
+      "restriction": "Monitor only; service-side behavior and network reachability must remain separate",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "tiktok.com"
+        },
+        {
+          "match": "suffix",
+          "value": "tiktokcdn.com"
+        },
+        {
+          "match": "suffix",
+          "value": "tiktokv.com"
+        }
+      ],
+      "workIn": "lan-only",
+      "routeTo": {
+        "kind": "direct"
+      }
+    },
+    {
+      "id": "spotify",
+      "label": "Spotify",
+      "enabled": true,
+      "probeUrl": "https://www.spotify.com/",
+      "restriction": "Reviewed proxy route for provider-region availability; HTTP reachability is not full app validation",
+      "domains": [
+        {
+          "match": "suffix",
+          "value": "spotify.com"
+        },
+        {
+          "match": "suffix",
+          "value": "scdn.co"
+        },
+        {
+          "match": "suffix",
+          "value": "spotifycdn.com"
+        }
+      ],
+      "workIn": "both",
+      "routeTo": {
+        "kind": "vps-pool",
+        "allowedVpsIds": [
+          "vpn2"
+        ],
+        "onNoHealthyTarget": "servfail"
+      }
+    }
+  ]
+}

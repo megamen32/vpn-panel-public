@@ -1,0 +1,16 @@
+[Unit]
+Description=Monitor Samsung VPN benchmark device over USB ADB without changing RNDIS
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=roomhacker
+Environment=HOME=/home/roomhacker
+Environment=ANDROID_DEVICE_SERIAL=R5CR702SRFP
+Environment=ANDROID_USB_VENDOR_PRODUCT_REGEX=04e8:(6860|6864)
+StateDirectory=android-adb-reconnect
+TimeoutStartSec=45
+StandardOutput=journal
+StandardError=journal
+ExecStart=/usr/local/sbin/android-adb-usb-watchdog

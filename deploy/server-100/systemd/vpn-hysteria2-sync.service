@@ -1,0 +1,12 @@
+[Unit]
+Description=Sync enabled VPN users to all Hysteria2 servers
+After=network-online.target postgresql.service
+
+[Service]
+Type=oneshot
+User=roomhacker
+WorkingDirectory=/home/roomhacker/apps/vpn-panel
+EnvironmentFile=/home/roomhacker/apps/vpn-panel/.env
+ExecStart=/usr/local/bin/node scripts/deploy-hysteria2.mjs --apply
+TimeoutStartSec=120
+UMask=0077

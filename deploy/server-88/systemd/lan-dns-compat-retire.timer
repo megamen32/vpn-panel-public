@@ -1,0 +1,11 @@
+[Unit]
+Description=Retire the DNS compatibility forwarder after four DHCP lease horizons
+
+[Timer]
+OnActiveSec=48h
+AccuracySec=5min
+Persistent=true
+Unit=lan-dns-compat-retire.service
+
+[Install]
+WantedBy=timers.target

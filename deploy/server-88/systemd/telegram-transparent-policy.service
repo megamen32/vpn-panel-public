@@ -1,0 +1,16 @@
+[Unit]
+Description=Telegram transparent policy routing for server-88
+ConditionPathExists=/etc/vpn-panel-telegram-lane/telegram-transparent-lane.enable
+After=network-online.target xray.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment=NFT_FILE=/usr/local/etc/xray/telegram-transparent-lane.nft
+Environment=TELEGRAM_TPROXY_LIVE_APPROVED=1
+ExecStart=/usr/local/sbin/telegram-transparent-policy.sh --apply
+ExecStop=/usr/local/sbin/telegram-transparent-policy.sh --rollback
+
+[Install]
+WantedBy=multi-user.target

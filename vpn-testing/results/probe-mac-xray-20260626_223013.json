@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-06-26T19:30:13Z",
+  "node": "mac",
+  "network_ip": "2a03:d000:43e0:23d2:a971:7319:a3fc:b486",
+  "engine": "xray",
+  "endpoints": [
+    {
+      "id": "ru-smart-relay",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    }
+  ]
+}

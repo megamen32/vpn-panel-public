@@ -1,0 +1,14 @@
+[Unit]
+Description=Reconnect Samsung VPN benchmark device over Wi-Fi ADB
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=roomhacker
+Environment=HOME=/home/roomhacker
+Environment=ANDROID_DEVICE_SERIAL=R5CR702SRFP
+Environment=ANDROID_ADB_FIXED_PORT=5555
+Environment=ANDROID_ADB_PROMOTE_FIXED_PORT=1
+TimeoutStartSec=45
+ExecStart=/usr/local/sbin/android-adb-reconnect

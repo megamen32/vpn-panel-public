@@ -1,0 +1,128 @@
+{
+  "timestamp": "2026-06-26T19:22:27Z",
+  "node": "server-100",
+  "network_ip": "95.165.165.65",
+  "engine": "xray",
+  "endpoints": [
+    {
+      "id": "ru-smart-relay",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "ru-full-relay",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-httpupgrade-fallback",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-direct-ws",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-xhttp-fallback",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-grpc-fallback",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-cdn-fallback",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-cdn2-fallback",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-direct",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-xhttp-h2",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "us-reality",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "us-xhttp-h2",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    }
+  ]
+}

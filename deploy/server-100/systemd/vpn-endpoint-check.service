@@ -1,0 +1,35 @@
+[Unit]
+Description=Measure every endpoint offered in VPN subscriptions
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=roomhacker
+Group=roomhacker
+WorkingDirectory=/home/roomhacker/apps/vpn-panel
+UMask=0077
+# Measurement only. Publishing a verdict is not policy, and this run must never
+# reassign a client or restart the panel.
+Environment=HEALTH_APPLY_PROFILES=0
+# Scope is the public subscription: everything a client can actually receive.
+# Pinning an endpoint list here would let a sold endpoint go unmeasured, so the
+# run asks the panel what it offers instead of naming endpoints itself.
+Environment=DIAGNOSTIC_SUBSCRIPTION=0
+Environment=TARGETS=lan-server44
+Environment=PROFILE=health
+Environment=RENDER_TEST_PLAN=1
+Environment=VPN_TEST_PLAN=/home/roomhacker/apps/vpn-panel/vpn-testing/results/health-plan.json
+Environment=REMOTE_TELEMETRY_DISABLED=1
+# The remote probe kills the run at this many seconds. The default of 120
+# leaves the subscription run roughly 50% headroom, which is not enough to
+# survive an endpoint being added; a killed run publishes nothing at all.
+Environment=REMOTE_RUN_TIMEOUT_SECONDS=420
+Environment=VPN_PANEL_SCRIPT_DIR=/home/roomhacker/apps/vpn-panel/scripts
+Environment=VPN_NETWORK_TEST_SCRIPT=/usr/local/lib/vpn-panel/run-network-test.sh
+Environment=REMOTE_WORK_ROOT=/home/roomhacker/apps/vpn-panel/.tmp
+ExecStart=/usr/local/lib/vpn-panel/auto-endpoint-check.sh
+TimeoutStartSec=12min
+LogNamespace=application
+StandardOutput=journal
+StandardError=journal

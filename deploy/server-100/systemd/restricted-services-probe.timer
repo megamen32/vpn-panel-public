@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh the Russia-affected service reachability matrix hourly
+
+[Timer]
+OnCalendar=hourly
+RandomizedDelaySec=10min
+AccuracySec=1min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-06-26T18:43:53Z",
+  "node": "server-100",
+  "network_ip": "95.165.165.65",
+  "engine": "xray",
+  "endpoints": [
+    {
+      "id": "de-direct",
+      "tcp_reachable": true,
+      "tunnel_up": true,
+      "exit_ip": "212.192.31.128",
+      "sites": [
+        {
+          "url": "chatgpt.com",
+          "http_code": 403,
+          "latency_ms": 235
+        },
+        {
+          "url": "youtube.com",
+          "http_code": 301,
+          "latency_ms": 404
+        },
+        {
+          "url": "telegram.org",
+          "http_code": 0,
+          "latency_ms": 10001
+        },
+        {
+          "url": "instagram.com",
+          "http_code": 0,
+          "latency_ms": 10001
+        },
+        {
+          "url": "discord.com",
+          "http_code": 0,
+          "latency_ms": 10001
+        },
+        {
+          "url": "whatsapp.com",
+          "http_code": 0,
+          "latency_ms": 10001
+        }
+      ],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    }
+  ]
+}

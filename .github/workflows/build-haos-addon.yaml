@@ -1,0 +1,115 @@
+name: Build Smart Edge add-on image
+
+# This repository owns the add-on code. It builds the image from
+# deploy/haos/transparent-smart-edge-addon and publishes it to GHCR; the HAOS
+# supervisor pulls it and updates the running add-on by itself.
+#
+# The public megamen32/haos-smart-edge-addons repository is packaging only —
+# its config.yaml points at the image published from here.
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "deploy/haos/transparent-smart-edge-addon/**"
+      - ".github/workflows/build-haos-addon.yaml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  APP_PATH: deploy/haos/transparent-smart-edge-addon
+  ARCHITECTURES: '["aarch64"]'
+  IMAGE_NAME: vpn-panel-haos-smart-edge
+  REGISTRY_PREFIX: ghcr.io/megamen32
+
+jobs:
+  prepare:
+    name: Prepare build
+    runs-on: ubuntu-latest
+    outputs:
+      architectures: ${{ steps.info.outputs.architectures }}
+      build_matrix: ${{ steps.matrix.outputs.matrix }}
+      version: ${{ steps.info.outputs.version }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Read app version
+        id: info
+        shell: bash
+        run: |
+          version="$(sed -n 's/^version: *"\([^"]*\)".*/\1/p' "${APP_PATH}/config.yaml")"
+          if [[ -z "${version}" ]]; then
+            echo "Unable to read version from ${APP_PATH}/config.yaml" >&2
+            exit 1
+          fi
+          echo "version=${version}" >> "${GITHUB_OUTPUT}"
+          echo "architectures=${ARCHITECTURES}" >> "${GITHUB_OUTPUT}"
+
+      - name: Prepare architecture matrix
+        id: matrix
+        uses: home-assistant/builder/actions/prepare-multi-arch-matrix@2026.06.0
+        with:
+          architectures: ${{ env.ARCHITECTURES }}
+          image-name: ${{ env.IMAGE_NAME }}
+          registry-prefix: ${{ env.REGISTRY_PREFIX }}
+
+  build:
+    name: Build ${{ matrix.arch }} image
+    needs: prepare
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.build_matrix) }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build and publish image
+        uses: home-assistant/builder/actions/build-image@2026.06.0
+        with:
+          arch: ${{ matrix.arch }}
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+          context: ./${{ env.APP_PATH }}
+          image: ${{ matrix.image }}
+          image-tags: |
+            ${{ needs.prepare.outputs.version }}
+            latest
+          labels: |
+            io.hass.type=app
+            io.hass.name=Bezrabotnyi Transparent Smart Edge
+            io.hass.description=SmartDNS, sing-box, and transparent TLS edge
+          push: "true"
+          version: ${{ needs.prepare.outputs.version }}
+
+  manifest:
+    name: Publish manifest
+    needs:
+      - prepare
+      - build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      packages: write
+    steps:
+      - name: Publish multi-architecture manifest
+        uses: home-assistant/builder/actions/publish-multi-arch-manifest@2026.06.0
+        with:
+          architectures: ${{ needs.prepare.outputs.architectures }}
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+          image-name: ${{ env.IMAGE_NAME }}
+          image-tags: |
+            ${{ needs.prepare.outputs.version }}
+            latest
+          registry-prefix: ${{ env.REGISTRY_PREFIX }}

@@ -1,0 +1,425 @@
+{
+  "policy": {
+    "primary": "server-100",
+    "reserve": "haos"
+  },
+  "publicHttps": {
+    "listenPort": 443
+  },
+  "mobileIngress": {
+    "listenPort": 443,
+    "relayBackend": "95.165.165.65:443",
+    "endpointSuffix": "-mobile",
+    "regions": {
+      "DE": {
+        "target": "vusa",
+        "address": "185.240.120.152"
+      },
+      "US": {
+        "target": "vpn2",
+        "address": "212.192.31.128"
+      }
+    }
+  },
+  "routes": [
+    {
+      "id": "smart-de-relay",
+      "sni": "smart-de.runet.bezrabotnyi.com",
+      "aliases": [
+        "vk.ru",
+        "smart.runet.bezrabotnyi.com"
+      ],
+      "backend": "be_smart_de",
+      "relayPort": 23445
+    },
+    {
+      "id": "full-de-relay",
+      "sni": "full-de.runet.bezrabotnyi.com",
+      "aliases": [
+        "full.runet.bezrabotnyi.com"
+      ],
+      "backend": "be_full_de",
+      "relayPort": 23444
+    },
+    {
+      "id": "smart-us-relay",
+      "sni": "smart-us.runet.bezrabotnyi.com",
+      "aliases": [],
+      "backend": "be_smart_us",
+      "relayPort": 23447
+    },
+    {
+      "id": "full-us-relay",
+      "sni": "full-us.runet.bezrabotnyi.com",
+      "aliases": [],
+      "backend": "be_full_us",
+      "relayPort": 23446
+    },
+    {
+      "id": "fi-helsinki-relay",
+      "sni": "fi.runet.bezrabotnyi.com",
+      "aliases": [
+        "fin.bezrabotnyi.com"
+      ],
+      "backend": "be_fi_helsinki",
+      "relayPort": 23448
+    }
+  ],
+  "ingressServicePlacement": {
+    "schemaVersion": 1,
+    "nodes": {
+      "nanokvm-remote44": {
+        "lanAddress": "192.168.2.43",
+        "publicIngress": false,
+        "endpointConsumer": "device"
+      },
+      "nanokvm-remote88": {
+        "lanAddress": "192.168.2.87",
+        "publicIngress": false,
+        "endpointConsumer": "device"
+      },
+      "server-100": {
+        "lanAddress": "192.168.2.100",
+        "lanMacAddress": "d0:50:99:dc:33:45",
+        "publicIngress": true,
+        "endpointConsumer": "nginx",
+        "nginxListenerProfile": "haproxy-loopback"
+      },
+      "server-88": {
+        "lanAddress": "192.168.2.75",
+        "lanMacAddress": "22:49:4d:02:95:5b",
+        "publicIngress": false,
+        "endpointConsumer": "nginx",
+        "nginxListenerProfile": "lan-canary"
+      },
+      "server-44": {
+        "lanAddress": "192.168.2.5",
+        "lanMacAddress": "22:02:5c:06:05:ab",
+        "publicIngress": false,
+        "endpointConsumer": "nginx",
+        "nginxListenerProfile": "lan-canary"
+      },
+      "haos": {
+        "lanAddress": "192.168.2.101",
+        "publicIngress": true,
+        "endpointConsumer": "recovery-nginx",
+        "nginxListenerProfile": "recovery-gateway-18080"
+      }
+    },
+    "services": [
+      {
+        "id": "nanokvm-remote44",
+        "protocol": "http",
+        "port": 80,
+        "hostnames": [
+          "remote44.bezrabotnyi.com",
+          "remote44-b.bezrabotnyi.com"
+        ],
+        "placements": [
+          "nanokvm-remote44"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            200
+          ]
+        },
+        "fallback": "remote-backend"
+      },
+      {
+        "id": "nanokvm-remote88",
+        "protocol": "http",
+        "port": 80,
+        "hostnames": [
+          "remote88.bezrabotnyi.com",
+          "remote88-b.bezrabotnyi.com"
+        ],
+        "placements": [
+          "nanokvm-remote88"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            200
+          ]
+        },
+        "fallback": "remote-backend"
+      },
+      {
+        "id": "whisper",
+        "protocol": "http",
+        "port": 7653,
+        "hostnames": [
+          "whisper.bezrabotnyi.com"
+        ],
+        "placements": [
+          "server-88"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44",
+          "haos"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            200
+          ]
+        },
+        "fallback": "remote-backend",
+        "recoveryAuth": "anonymous"
+      },
+      {
+        "id": "gptadmin-mcp",
+        "protocol": "http",
+        "port": 22554,
+        "hostnames": [
+          "*.t.gptadmin.bezrabotnyi.com"
+        ],
+        "placements": [
+          "server-100"
+        ],
+        "allowedIngressNodes": [
+          "server-100"
+        ],
+        "health": {
+          "path": "/mcp",
+          "expectedStatus": [
+            401
+          ]
+        },
+        "fallback": "requires-replica"
+      },
+      {
+        "id": "cockpit-88",
+        "protocol": "https",
+        "port": 9090,
+        "hostnames": [
+          "88.bezrabotnyi.com"
+        ],
+        "placements": [
+          "server-88"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44",
+          "haos"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            200
+          ]
+        },
+        "fallback": "remote-backend",
+        "recoveryAuth": "managed"
+      },
+      {
+        "id": "cockpit-44",
+        "protocol": "https",
+        "port": 9090,
+        "hostnames": [
+          "44.bezrabotnyi.com"
+        ],
+        "placements": [
+          "server-44"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44",
+          "haos"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            200
+          ]
+        },
+        "fallback": "remote-backend",
+        "recoveryAuth": "managed"
+      },
+      {
+        "id": "homeassistant",
+        "protocol": "http",
+        "port": 8123,
+        "hostnames": [
+          "home.bezrabotnyi.com"
+        ],
+        "placements": [
+          "haos"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            200
+          ]
+        },
+        "fallback": "remote-backend"
+      },
+      {
+        "id": "telegram-proxy",
+        "protocol": "http",
+        "port": 7777,
+        "hostnames": [
+          "tg.bezrabotnyi.com",
+          "tgb.bezrabotnyi.com"
+        ],
+        "placements": [
+          "server-88"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            404
+          ]
+        },
+        "fallback": "remote-backend"
+      },
+      {
+        "id": "telegram-tg-web",
+        "protocol": "http",
+        "port": 35621,
+        "hostnames": [
+          "tg.bezrabotnyi.com"
+        ],
+        "placements": [
+          "server-88"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            200
+          ]
+        },
+        "fallback": "remote-backend"
+      },
+      {
+        "id": "telegram-tgb-web",
+        "protocol": "http",
+        "port": 35622,
+        "hostnames": [
+          "tgb.bezrabotnyi.com"
+        ],
+        "placements": [
+          "server-88"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            200
+          ]
+        },
+        "fallback": "remote-backend"
+      },
+      {
+        "id": "books",
+        "protocol": "http",
+        "port": 32741,
+        "hostnames": [
+          "books.bezrabotnyi.com"
+        ],
+        "placements": [
+          "server-88"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44",
+          "haos"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            200
+          ]
+        },
+        "fallback": "remote-backend",
+        "recoveryAuth": "anonymous"
+      },
+      {
+        "id": "download",
+        "protocol": "http",
+        "port": 8000,
+        "hostnames": [
+          "download.bezrabotnyi.com"
+        ],
+        "placements": [
+          "server-88"
+        ],
+        "allowedIngressNodes": [
+          "server-100",
+          "server-88",
+          "server-44",
+          "haos"
+        ],
+        "health": {
+          "path": "/",
+          "expectedStatus": [
+            200
+          ]
+        },
+        "fallback": "remote-backend",
+        "recoveryAuth": "anonymous"
+      }
+    ]
+  },
+  "server100": {
+    "listenAddresses": [
+      "192.168.2.100:443",
+      "192.168.1.100:443"
+    ],
+    "defaultBackend": "127.0.0.1:8444",
+    "relayHost": "127.0.0.1"
+  },
+  "router": {
+    "sshHost": "root@192.168.2.1",
+    "redirectNames": [
+      "srv100_https",
+      "ha_https"
+    ]
+  },
+  "haos": {
+    "sshHost": "root@192.168.2.101",
+    "sshPort": 2228,
+    "listenPort": 8443,
+    "relayHost": "192.168.2.100",
+    "addonSlug": "local_bezrabotnyi_recovery_haproxy",
+    "container": "app_local_bezrabotnyi_recovery_haproxy",
+    "configPath": "/data/haproxy.cfg",
+    "authPath": "/data/router-users.cfg",
+    "recoveryNginxMapPath": "/data/recovery-nginx-public.map"
+  }
+}

@@ -1,0 +1,18 @@
+[Unit]
+Description=VPN Panel LAN Smart Edge fallback on server-44
+After=docker.service network-online.target
+Wants=docker.service network-online.target
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/docker pull teddysun/xray:26.6.1
+ExecStartPre=-/usr/bin/docker rm -f xray-lan-edge
+ExecStart=/usr/bin/docker run --rm --user 0:0 --cap-add NET_ADMIN --name xray-lan-edge --network host \
+  -v /etc/vpn-panel/xray-lan-edge/config.json:/etc/xray/config.json:ro \
+  teddysun/xray:26.6.1
+ExecStop=/usr/bin/docker stop xray-lan-edge
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

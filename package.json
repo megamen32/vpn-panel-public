@@ -1,0 +1,51 @@
+{
+  "name": "vpn-panel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/server.ts",
+    "start": "node dist/server.js",
+    "migrate": "tsx src/cli/migrate.ts",
+    "import:xray": "tsx src/cli/import-xray-clients.ts",
+    "test": "tsx --test tests/*.test.ts",
+    "write:xray-relay-config": "tsx src/cli/write-xray-relay-config.ts",
+    "validate:xray": "tsx src/cli/validate-xray-routing.ts",
+    "validate:compact-geo": "bash scripts/deploy-compact-xray-geo.sh --dry-run",
+    "check:subscription": "tsx src/cli/check-subscription-consistency.ts",
+    "probe:restricted-services": "tsx src/cli/probe-restricted-services.ts",
+    "probe:restricted-services:compiled": "node dist/cli/probe-restricted-services.js",
+    "sync:restricted-service-policy": "tsx src/cli/sync-restricted-services-policy.ts",
+    "deploy:server100-ingress": "bash scripts/deploy-server100-public-ingress.sh",
+    "deploy:haos-reserve": "bash scripts/deploy-haos-recovery.sh",
+    "render:public-ingress": "node scripts/render-public-ingress.mjs --write",
+    "check:public-ingress-config": "node scripts/render-public-ingress.mjs --check",
+    "render:nginx-endpoints": "node scripts/render-nginx-endpoints.mjs --write",
+    "check:nginx-endpoints": "node scripts/render-nginx-endpoints.mjs --check",
+    "import:test-history": "tsx src/cli/import-vpn-test-history.ts",
+    "render:test-plan": "tsx src/cli/render-vpn-test-plan.ts",
+    "validate:telegram-lane": "tsx src/cli/validate-telegram-transparent-lane.ts",
+    "deploy:telegram-lane": "bash scripts/deploy-telegram-transparent-lane.sh",
+    "render:telegram-lane-candidate": "tsx src/cli/render-telegram-transparent-lane-candidate.ts",
+    "migrate:regional-relays": "tsx src/cli/migrate-regional-relays.ts"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/formbody": "^8.0.2",
+    "@types/ssh2": "^1.15.5",
+    "fastify": "^5.6.2",
+    "pg": "^8.16.3",
+    "qrcode": "^1.5.4",
+    "ssh2": "^1.17.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.1",
+    "@types/pg": "^8.15.5",
+    "@types/qrcode": "^1.5.6",
+    "@types/ssh2": "^1.15.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,12 @@
+[Unit]
+Description=Poll USB RNDIS traffic accounting every ten seconds
+
+[Timer]
+OnBootSec=20s
+OnUnitActiveSec=10s
+AccuracySec=2s
+Persistent=true
+Unit=android-rndis-traffic-monitor.service
+
+[Install]
+WantedBy=timers.target

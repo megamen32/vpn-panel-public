@@ -1,0 +1,13 @@
+[Unit]
+Description=Repair the VPN Panel GitHub LAN Smart Edge route
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=roomhacker
+Group=roomhacker
+WorkingDirectory=/home/roomhacker/apps/vpn-panel
+UMask=0077
+ExecStart=/home/roomhacker/apps/vpn-panel/scripts/github-route-autoheal.sh --once
+TimeoutStartSec=5min

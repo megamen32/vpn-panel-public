@@ -1,0 +1,25 @@
+[Unit]
+Description=Smart DNS SNI TCP edge proxy (Go)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=nobody
+Group=nogroup
+Environment=LISTEN_HOST=127.0.0.1
+Environment=LISTEN_PORT=9443
+Environment=CONNECT_PORT=443
+# VPS resolves/dials destinations directly; HAOS uses a private CONNECT proxy.
+Environment=PROXY_PORT=0
+ExecStart=/usr/local/bin/smart-edge
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

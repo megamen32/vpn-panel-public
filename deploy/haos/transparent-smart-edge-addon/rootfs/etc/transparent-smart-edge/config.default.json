@@ -1,0 +1,25 @@
+{
+  "defaultClientId": "lan",
+  "clients": {
+    "lan": {
+      "enabled": true,
+      "mode": "direct",
+      "defaultRoute": "direct"
+    }
+  },
+  "defaultRoute": "direct",
+  "localDefaultRoute": "direct",
+  "rules": [],
+  "directDns": {
+    "host": "9.9.9.9",
+    "port": 53,
+    "timeoutMs": 3000
+  },
+  "edgeProfiles": {
+    "local": {
+      "enabled": true,
+      "ipv4": "192.168.2.1",
+      "ttl": 60
+    }
+  }
+}

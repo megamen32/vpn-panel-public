@@ -1,0 +1,31 @@
+[Unit]
+Description=Read-only USB RNDIS byte accounting for Android tethering
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=roomhacker
+Group=roomhacker
+StateDirectory=android-rndis-traffic-monitor
+StateDirectoryMode=0750
+Environment=ITERATIONS=1
+ExecStart=/usr/local/sbin/android-rndis-traffic-monitor
+TimeoutStartSec=15s
+StandardOutput=journal
+StandardError=journal
+Nice=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+ReadWritePaths=/var/lib/android-rndis-traffic-monitor

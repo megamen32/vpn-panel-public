@@ -1,0 +1,21 @@
+# Public mirror of the VPN panel, maintained with git-private2public.
+#
+# source: the private repository that is the real home of the code
+# target: the public repository that receives the cleaned copy
+#
+# The private repo is never rewritten. Publish runs in a temporary clone,
+# drops what must not be public, and pushes the result here.
+source = megamen32/vpn-panel-private
+target = megamen32/vpn-panel-public
+push_force = true
+push_branches = main
+push_tags = false
+
+# Publish a cleaned snapshot rather than history.
+#
+# The private history carries a capability token and the live sing-box
+# credentials. The mirror should carry code, not the story of how the
+# secrets got committed. One neutral root commit also keeps author names
+# and commit messages out of the public repository.
+mode = snapshot
+snapshot_include_source_sha = false

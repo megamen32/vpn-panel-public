@@ -1,0 +1,13 @@
+[Unit]
+Description=Explore the full VPN endpoint catalog every six hours
+
+[Timer]
+# Matches the six-hour observation window used to decide an endpoint verdict, so
+# each exploration pass contributes a complete window of history rather than a
+# fragment of one. Staggered off the recurring run's cadence.
+OnCalendar=*-*-* 01,07,13,19:25:00
+RandomizedDelaySec=120
+Persistent=true
+
+[Install]
+WantedBy=timers.target

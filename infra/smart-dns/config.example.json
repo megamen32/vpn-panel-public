@@ -1,0 +1,108 @@
+{
+  "defaultClientId": null,
+  "baseDotName": "dns.bezrabotnyi.com",
+  "dohListen": {
+    "host": "0.0.0.0",
+    "port": 8053
+  },
+  "dotListen": {
+    "host": "0.0.0.0",
+    "port": 8853
+  },
+  "directDns": {
+    "host": "1.1.1.1",
+    "port": 53,
+    "timeoutMs": 3000
+  },
+  "httpProxy": {
+    "host": "127.0.0.1",
+    "port": 3128,
+    "timeoutMs": 5000
+  },
+  "proxyDoh": {
+    "urlHost": "cloudflare-dns.com",
+    "path": "/dns-query",
+    "port": 443,
+    "timeoutMs": 7000
+  },
+  "tls": {
+    "certFile": "/opt/smart-dns/certs/fullchain.pem",
+    "keyFile": "/opt/smart-dns/certs/privkey.pem"
+  },
+  "clients": {
+    "replace-with-long-random-client-id": {
+      "enabled": true,
+      "mode": "non_ru_via_proxy",
+      "defaultRoute": "proxy"
+    }
+  },
+  "directSuffixes": [
+    "ru",
+    "su",
+    "xn--p1ai",
+    "local",
+    "lan",
+    "bezrabotnyi.com"
+  ],
+  "directDomains": [
+    "vpn2.bezrabotnyi.com",
+    "vusa.bezrabotnyi.com",
+    "server-44",
+    "localhost"
+  ],
+  "proxySuffixes": [
+    "telegram.org",
+    "telegram.me",
+    "t.me",
+    "tdesktop.com",
+    "telesco.pe",
+    "telegra.ph",
+    "openai.com",
+    "chatgpt.com",
+    "oaistatic.com",
+    "oaiusercontent.com",
+    "qoder.com"
+  ],
+  "proxyDomains": [
+    "api.telegram.org",
+    "web.telegram.org",
+    "ifconfig.me"
+  ],
+  "sync": {
+    "url": "https://vpn.bezrabotnyi.com/api/internal/smart-dns/clients",
+    "token": "replace-with-vpn-panel-health-api-key",
+    "intervalMs": 30000,
+    "timeoutMs": 8000
+  },
+  "smartEdge": {
+    "enabled": true,
+    "ipv4": "185.240.120.152",
+    "ttl": 60
+  },
+  "hardDirectSuffixes": [
+    "github.com",
+    "githubusercontent.com",
+    "githubassets.com",
+    "github.io"
+  ],
+  "hardDirectDomains": [
+    "github.com",
+    "www.github.com",
+    "ssh.github.com",
+    "api.github.com",
+    "gist.github.com",
+    "raw.githubusercontent.com",
+    "objects.githubusercontent.com",
+    "github.githubassets.com"
+  ],
+  "edgeAuth": {
+    "ttlMs": 86400000,
+    "logDenied": false,
+    "token": "replace-with-shared-edge-token"
+  },
+  "edgeUdp": {
+    "enabled": true,
+    "port": 443,
+    "ttlMs": 86400000
+  }
+}

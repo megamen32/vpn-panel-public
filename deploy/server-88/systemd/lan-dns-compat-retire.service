@@ -1,0 +1,7 @@
+[Unit]
+Description=Retire the stale-lease DNS compatibility forwarder
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl disable --now lan-dns-compat.service
+ExecStartPost=-/usr/bin/systemctl disable lan-dns-compat-retire.timer

@@ -1,0 +1,22 @@
+[Unit]
+Description=VPN Panel Smart DNS DoH/DoT gateway
+After=network-online.target sing-box.service
+Wants=network-online.target
+Requires=sing-box.service
+
+[Service]
+User=roomhacker
+Group=roomhacker
+WorkingDirectory=/opt/smart-dns
+Environment=SMART_DNS_CONFIG=/opt/smart-dns/config.json
+ExecStart=/usr/bin/node /opt/smart-dns/server.js
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=false
+ReadWritePaths=/opt/smart-dns
+
+[Install]
+WantedBy=multi-user.target

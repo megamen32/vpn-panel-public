@@ -1,0 +1,757 @@
+{
+  "schemaVersion": 1,
+  "profiles": {
+    "quick": {
+      "stages": [
+        "preflight",
+        "gate"
+      ],
+      "parallelism": 6,
+      "description": "Fast transport and Telegram gate check"
+    },
+    "health": {
+      "stages": [
+        "preflight",
+        "gate",
+        "sites",
+        "udp"
+      ],
+      "parallelism": 3,
+      "description": "Endpoint eligibility check used by automation"
+    },
+    "benchmark": {
+      "stages": [
+        "preflight",
+        "gate",
+        "sites",
+        "udp",
+        "quic",
+        "throughput"
+      ],
+      "parallelism": 3,
+      "description": "Full multi-site and transport benchmark"
+    }
+  },
+  "targets": {
+    "local-server100": {
+      "networkClass": "lan",
+      "client": "smartdns",
+      "accessMethod": "dns",
+      "wireMethod": "wire-internal",
+      "hostRole": "server-100",
+      "runner": "local",
+      "host": "localhost",
+      "executionHostAddress": "192.168.2.100",
+      "executionLocality": "non-local"
+    },
+    "lan-server44": {
+      "networkClass": "lan",
+      "client": "xray",
+      "accessMethod": "socks-proxy",
+      "wireMethod": "wire-internal",
+      "hostRole": "server-44",
+      "runner": "ssh",
+      "host": "roomhacker@192.168.2.5",
+      "executionHostAddress": "192.168.2.5",
+      "executionLocality": "non-local"
+    },
+    "lan-server44-singbox-http": {
+      "networkClass": "lan",
+      "client": "sing-box",
+      "accessMethod": "http-proxy",
+      "wireMethod": "wire-internal",
+      "hostRole": "server-44",
+      "runner": "proxy-smoke",
+      "host": "roomhacker@192.168.2.5",
+      "proxy": "http://192.168.2.5:3128",
+      "executionHostAddress": "192.168.2.5",
+      "executionLocality": "non-local"
+    },
+    "lan-server44-singbox-socks": {
+      "networkClass": "lan",
+      "client": "sing-box",
+      "accessMethod": "socks-proxy",
+      "wireMethod": "wire-internal",
+      "hostRole": "server-44",
+      "runner": "proxy-smoke",
+      "host": "roomhacker@192.168.2.5",
+      "proxy": "socks5h://192.168.2.5:1080",
+      "executionHostAddress": "192.168.2.5",
+      "executionLocality": "non-local"
+    },
+    "lan-server88-xray-http-us": {
+      "networkClass": "lan",
+      "client": "xray",
+      "accessMethod": "http-proxy",
+      "wireMethod": "wire-internal",
+      "hostRole": "server-88",
+      "runner": "proxy-smoke",
+      "host": "roomhacker@192.168.2.75",
+      "proxy": "http://192.168.2.75:3127",
+      "executionHostAddress": "192.168.2.75",
+      "executionLocality": "non-local"
+    },
+    "lan-server88-xray-http-de": {
+      "networkClass": "lan",
+      "client": "xray",
+      "accessMethod": "http-proxy",
+      "wireMethod": "wire-internal",
+      "hostRole": "server-88",
+      "runner": "proxy-smoke",
+      "host": "roomhacker@192.168.2.75",
+      "proxy": "http://192.168.2.75:3128"
+    },
+    "lan-server88-xray-socks": {
+      "networkClass": "lan",
+      "client": "xray",
+      "accessMethod": "socks-proxy",
+      "wireMethod": "wire-internal",
+      "hostRole": "server-88",
+      "runner": "proxy-smoke",
+      "host": "roomhacker@192.168.2.75",
+      "proxy": "socks5h://192.168.2.75:1080"
+    },
+    "external-wired-mac": {
+      "networkClass": "external-wired",
+      "client": "xray",
+      "accessMethod": "socks-proxy",
+      "wireMethod": "wire-external",
+      "hostRole": "mac",
+      "runner": "ssh",
+      "host": "user@localhost:2222",
+      "executionHostAddress": "192.168.2.8",
+      "executionLocality": "local"
+    },
+    "external-mac": {
+      "networkClass": "external-unknown",
+      "client": "xray",
+      "accessMethod": "socks-proxy",
+      "wireMethod": "unknown",
+      "hostRole": "mac",
+      "runner": "ssh",
+      "host": "user@localhost:2222"
+    },
+    "external-wireless-android": {
+      "networkClass": "external-mobile",
+      "client": "xray",
+      "accessMethod": "socks-proxy",
+      "wireMethod": "4g",
+      "hostRole": "android",
+      "runner": "android-adb",
+      "host": "roomhacker@192.168.2.100",
+      "requiredTransport": "cellular",
+      "executionHostAddress": "192.168.2.100",
+      "executionLocality": "non-local"
+    }
+  },
+  "testTargets": [
+    {
+      "id": "lan-server44",
+      "planTarget": "lan-server44",
+      "label": "server-44 · Xray Docker",
+      "runner": "ssh",
+      "sshHost": "roomhacker@192.168.2.5",
+      "sshPort": 22,
+      "mode": "docker",
+      "engine": "xray",
+      "enabled": true,
+      "probeSchedule": {
+        "enabled": true,
+        "everyMinutes": 60,
+        "profile": "health"
+      }
+    },
+    {
+      "id": "lan-server44-singbox-http",
+      "planTarget": "lan-server44-singbox-http",
+      "label": "server-44 · sing-box HTTP",
+      "runner": "ssh",
+      "sshHost": "roomhacker@192.168.2.5",
+      "sshPort": 22,
+      "mode": "docker",
+      "engine": "singbox",
+      "enabled": true,
+      "probeSchedule": {
+        "enabled": true,
+        "everyMinutes": 60,
+        "profile": "health"
+      }
+    },
+    {
+      "id": "lan-server44-singbox-socks",
+      "planTarget": "lan-server44-singbox-socks",
+      "label": "server-44 · sing-box SOCKS",
+      "runner": "ssh",
+      "sshHost": "roomhacker@192.168.2.5",
+      "sshPort": 22,
+      "mode": "docker",
+      "engine": "singbox",
+      "enabled": true,
+      "probeSchedule": {
+        "enabled": true,
+        "everyMinutes": 60,
+        "profile": "health"
+      }
+    },
+    {
+      "id": "external-mac",
+      "planTarget": "external-mac",
+      "label": "Mac · native Xray",
+      "runner": "ssh",
+      "sshHost": "user@localhost",
+      "sshPort": 2222,
+      "mode": "native",
+      "engine": "xray",
+      "enabled": true,
+      "probeSchedule": {
+        "enabled": true,
+        "everyMinutes": 15,
+        "profile": "quick"
+      }
+    },
+    {
+      "id": "external-wireless-android",
+      "planTarget": "external-wireless-android",
+      "label": "Android 4G · server-100",
+      "runner": "android-adb",
+      "sshHost": "roomhacker@192.168.2.100",
+      "sshPort": 22,
+      "mode": "android",
+      "engine": "xray",
+      "adbSerial": "R5CR702SRFP",
+      "enabled": true,
+      "probeSchedule": {
+        "enabled": false,
+        "everyMinutes": 180,
+        "profile": "health"
+      }
+    }
+  ],
+  "httpChecks": [
+    {
+      "id": "telegram",
+      "label": "Telegram",
+      "url": "https://telegram.org",
+      "group": "gate",
+      "acceptedCodes": [
+        200,
+        301,
+        302,
+        307,
+        308
+      ],
+      "timeoutSeconds": 8
+    },
+    {
+      "id": "gstatic",
+      "label": "Google 204",
+      "url": "https://www.gstatic.com/generate_204",
+      "group": "gate",
+      "enabled": false,
+      "acceptedCodes": [
+        204
+      ],
+      "timeoutSeconds": 8
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "url": "https://www.youtube.com",
+      "group": "world",
+      "acceptedCodes": [
+        200,
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "timeoutSeconds": 12
+    },
+    {
+      "id": "chatgpt",
+      "label": "ChatGPT",
+      "url": "https://chatgpt.com",
+      "group": "world",
+      "acceptedCodes": [
+        200,
+        301,
+        302,
+        303,
+        307,
+        308,
+        403
+      ],
+      "timeoutSeconds": 12
+    },
+    {
+      "id": "reddit",
+      "label": "Reddit",
+      "url": "https://www.reddit.com",
+      "group": "world",
+      "enabled": false,
+      "acceptedCodes": [
+        200,
+        301,
+        302,
+        303,
+        307,
+        308,
+        403
+      ],
+      "timeoutSeconds": 12
+    },
+    {
+      "id": "wikipedia",
+      "label": "Wikipedia",
+      "url": "https://en.wikipedia.org",
+      "group": "world",
+      "acceptedCodes": [
+        200,
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "timeoutSeconds": 12
+    },
+    {
+      "id": "vk",
+      "label": "VK",
+      "url": "https://vk.com",
+      "group": "ru",
+      "acceptedCodes": [
+        200,
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "timeoutSeconds": 12
+    },
+    {
+      "id": "yandex",
+      "label": "Yandex",
+      "url": "https://yandex.ru",
+      "group": "ru",
+      "acceptedCodes": [
+        200,
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "timeoutSeconds": 12
+    },
+    {
+      "id": "2ip",
+      "label": "2ip",
+      "url": "https://2ip.ru",
+      "group": "ru",
+      "acceptedCodes": [
+        200,
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "timeoutSeconds": 12
+    }
+  ],
+  "udpCheck": {
+    "id": "dns-udp",
+    "host": "8.8.8.8",
+    "port": 53,
+    "queryName": "telegram.org",
+    "timeoutSeconds": 5
+  },
+  "quicCheck": {
+    "id": "http3",
+    "url": "https://cloudflare-quic.com",
+    "timeoutSeconds": 12
+  },
+  "throughput": {
+    "url": "https://speed.cloudflare.com/__down",
+    "bytes": 5000000,
+    "timeoutSeconds": 25
+  },
+  "endpointExpectations": {
+    "de-direct": {
+      "mode": "diagnostic",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "smart-de-relay": {
+      "mode": "smart",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "full-de-relay": {
+      "mode": "full",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "smart-us-relay": {
+      "mode": "smart",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "full-us-relay": {
+      "mode": "full",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "smart-de-relay-mobile": {
+      "mode": "smart",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "full-de-relay-mobile": {
+      "mode": "full",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "smart-us-relay-mobile": {
+      "mode": "smart",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "full-us-relay-mobile": {
+      "mode": "full",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "de-xhttp": {
+      "mode": "diagnostic",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "de-cdn": {
+      "mode": "diagnostic",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "de-grpc": {
+      "mode": "diagnostic",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "de-httpupgrade": {
+      "mode": "diagnostic",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "de-cdn2": {
+      "mode": "diagnostic",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "de-direct-ws": {
+      "mode": "diagnostic",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "de-xhttp-h2": {
+      "mode": "diagnostic",
+      "region": "DE",
+      "exitIp": "212.192.31.128"
+    },
+    "us-reality": {
+      "mode": "diagnostic",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "us-xhttp": {
+      "mode": "diagnostic",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "us-xhttp-h2-443": {
+      "mode": "diagnostic",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "us-httpupgrade": {
+      "mode": "diagnostic",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "us-direct-ws": {
+      "mode": "diagnostic",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "us-grpc": {
+      "mode": "diagnostic",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "us-cdn": {
+      "mode": "diagnostic",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "us-cdn2": {
+      "mode": "diagnostic",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "us-xhttp-h2": {
+      "mode": "diagnostic",
+      "region": "US",
+      "exitIp": "185.240.120.152"
+    },
+    "fi-helsinki-relay": {
+      "mode": "full",
+      "region": "FI"
+    }
+  },
+  "eligibility": {
+    "requiredGateChecks": [
+      "telegram"
+    ],
+    "minimumSiteRatio": 0.66,
+    "requireUdp": false
+  },
+  "generatedFrom": "secure.json:nodes",
+  "endpointCatalog": [
+    {
+      "id": "de-direct",
+      "label": "DE-direct",
+      "kind": "vless-reality",
+      "address": "vpn2.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "smart-de-relay",
+      "label": "Smart DE",
+      "kind": "vless-reality",
+      "address": "95.165.165.65",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "full-de-relay",
+      "label": "Full DE",
+      "kind": "vless-reality",
+      "address": "95.165.165.65",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "smart-us-relay",
+      "label": "Smart US",
+      "kind": "vless-reality",
+      "address": "95.165.165.65",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "full-us-relay",
+      "label": "Full US",
+      "kind": "vless-reality",
+      "address": "95.165.165.65",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "smart-de-relay-mobile",
+      "label": "Smart DE (4G)",
+      "kind": "vless-reality",
+      "address": "95.165.165.65",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "full-de-relay-mobile",
+      "label": "Full DE (4G)",
+      "kind": "vless-reality",
+      "address": "95.165.165.65",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "smart-us-relay-mobile",
+      "label": "Smart US (4G)",
+      "kind": "vless-reality",
+      "address": "95.165.165.65",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "full-us-relay-mobile",
+      "label": "Full US (4G)",
+      "kind": "vless-reality",
+      "address": "95.165.165.65",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "de-xhttp",
+      "label": "DE-XHTTP fallback",
+      "kind": "vless-xhttp",
+      "address": "vpn2.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "de-cdn",
+      "label": "DE-CDN fallback",
+      "kind": "vless-ws",
+      "address": "cdn.demiurge.space",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "de-grpc",
+      "label": "DE-gRPC fallback",
+      "kind": "vless-grpc",
+      "address": "vpn2.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "de-httpupgrade",
+      "label": "DE-HTTPUpgrade fallback",
+      "kind": "vless-httpupgrade",
+      "address": "vpn2.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "de-cdn2",
+      "label": "DE-CDN2 fallback",
+      "kind": "vless-ws",
+      "address": "cdn2.demiurge.space",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "de-direct-ws",
+      "label": "DE-Direct-WS",
+      "kind": "vless-ws",
+      "address": "vpn2.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "de-xhttp-h2",
+      "label": "DE-XHTTP-H2",
+      "kind": "vless-xhttp",
+      "address": "vpn2.bezrabotnyi.com",
+      "port": 28443,
+      "enabled": true,
+      "region": "DE"
+    },
+    {
+      "id": "us-reality",
+      "label": "US Reality 443",
+      "kind": "vless-reality",
+      "address": "vusa.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "us-xhttp",
+      "label": "US XHTTP 443",
+      "kind": "vless-xhttp",
+      "address": "vusa.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "us-xhttp-h2-443",
+      "label": "US XHTTP H2 443",
+      "kind": "vless-xhttp",
+      "address": "vusa.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "us-httpupgrade",
+      "label": "US HTTPUpgrade 443",
+      "kind": "vless-httpupgrade",
+      "address": "vusa.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "us-direct-ws",
+      "label": "US Direct WS 443",
+      "kind": "vless-ws",
+      "address": "vusa.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "us-grpc",
+      "label": "US gRPC 443",
+      "kind": "vless-grpc",
+      "address": "vusa.bezrabotnyi.com",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "us-cdn",
+      "label": "US CDN fallback",
+      "kind": "vless-ws",
+      "address": "us-cdn.demiurge.space",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "us-cdn2",
+      "label": "US CDN2 fallback",
+      "kind": "vless-ws",
+      "address": "us-cdn2.demiurge.space",
+      "port": 443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "us-xhttp-h2",
+      "label": "US XHTTP H2",
+      "kind": "vless-xhttp",
+      "address": "vusa.bezrabotnyi.com",
+      "port": 28443,
+      "enabled": true,
+      "region": "US"
+    },
+    {
+      "id": "fi-helsinki-relay",
+      "label": "🇫🇮 Helsinki, Finland",
+      "kind": "vless-reality",
+      "address": "95.165.165.65",
+      "port": 443,
+      "enabled": true,
+      "region": "FI"
+    }
+  ]
+}

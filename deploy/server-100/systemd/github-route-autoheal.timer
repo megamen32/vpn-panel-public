@@ -1,0 +1,11 @@
+[Unit]
+Description=Check the GitHub LAN Smart Edge route every minute
+
+[Timer]
+OnBootSec=1min
+OnUnitInactiveSec=1min
+Persistent=true
+Unit=github-route-autoheal.service
+
+[Install]
+WantedBy=timers.target

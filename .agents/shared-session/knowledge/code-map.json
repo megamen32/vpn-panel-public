@@ -1,0 +1,146 @@
+{
+  "entries": {
+    "smart-edge-self-loop-local-resolution": {
+      "confidence": "verified",
+      "evidence": [
+        "VUSA 2026-09-12: about 18k connections/min and 34k TIME_WAIT collapsed to 2.1k after guard; test TestConnectRejectsResolvedLocalAddressWithoutDialing and real 3127 canary passed."
+      ],
+      "git_head": "93201203bc796b453da8349faed5ef16666b2bd5",
+      "key": "smart-edge-self-loop-local-resolution",
+      "kind": "failure-shield",
+      "locations": [
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "904433c83998a11e11f00808f7a000ac4b2c4597bfe3b1ab63b22000a0209cab",
+          "path": "scripts/smartedge-go/main.go",
+          "symbol": ""
+        },
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "af1bacb0a74bffa49747666e1f98353eccbcff6fdcb0af1feb877d5f103b5a52",
+          "path": "scripts/smartedge-go/main_test.go",
+          "symbol": ""
+        }
+      ],
+      "summary": "Smart Edge must reject an SNI hostname resolving to any local interface IP before dialing; otherwise nginx :443 to local :9443 recurses back into the same public :443 and saturates one-core edges.",
+      "verified_at": "2026-09-12T04:25:35.220299+03:00"
+    },
+    "smartdns-public-alias-haos-regression": {
+      "confidence": "verified",
+      "evidence": [
+        "Discriminating probe: LAN client curl to chatgpt.com resolves 203.0.113.1, OpenWrt public-alias nft counter increments, TLS succeeds, and visible Chrome document remoteIPAddress is 203.0.113.1 with zero private responses."
+      ],
+      "git_head": "cafa8fa00551f4137ff8c5a194230bb089cf107b",
+      "key": "smartdns-public-alias-haos-regression",
+      "kind": "failure-shield",
+      "locations": [
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "10d2b69fd944ade5f6bda12f1bc78fc50a31031e0eb2a2103039ac5139b4a1fa",
+          "path": "scripts/deploy-haos-transparent-smart-edge.sh",
+          "symbol": ""
+        },
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "90f3c0c6b3cced3090c677d65bdeac26095d95f629048f9c2aecbbdc20c68242",
+          "path": "tests/deploy-haos-transparent-smart-edge.test.ts",
+          "symbol": ""
+        },
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "d4702c6de0f2f903973514f9faaa2e05444f62acdbd01cecce0fa045c5e57e72",
+          "path": "deploy/router/transparent-smart-edge/apply.sh",
+          "symbol": ""
+        }
+      ],
+      "summary": "HAOS SmartDNS must synthesize the same non-local LAN alias that OpenWrt DNATs to HAOS; do not let edge_ipv4 fall back to 192.168.2.1 after ownership migrations.",
+      "verified_at": "2026-09-28T03:02:43.862004+03:00"
+    },
+    "smartdns-quick-vpn-all-scopes": {
+      "confidence": "verified",
+      "evidence": [],
+      "git_head": "41b9cc0220804ef3b681826bc485ce8b03a8a7d9",
+      "key": "smartdns-quick-vpn-all-scopes",
+      "kind": "failure-shield",
+      "locations": [
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "d6ba4b001fdeb59b34b988ba3aa3b0b75c9ce631ee5a71f77fb68fec8ab0796d",
+          "path": "src/smart-dns-policy.ts",
+          "symbol": ""
+        },
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "1c6d507801655a5de9ec37c5e0f6e742f1bd714b4dd317831376061ea90aa537",
+          "path": "src/server.ts",
+          "symbol": ""
+        },
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "ac6e37281aebf237c13c349e4b6de0f9305d18bfdff864a862b3897f07f7b0fd",
+          "path": "src/pages.ts",
+          "symbol": ""
+        },
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "37fe7aac38cd304474e62d8377786e77aede76f951f97fadbc4412f40415a24f",
+          "path": "tests/smart-dns-policy.test.ts",
+          "symbol": ""
+        },
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "f7d7793c732419de910540e42d2077a24c70cee7f67e2aa99d5966d531d15a8e",
+          "path": "tests/pages-extended.test.ts",
+          "symbol": ""
+        }
+      ],
+      "summary": "Quick routing actions have three distinct scopes: smart-dns uses internalDns+vpn through vpn2, vpn uses externalDns+internalDns+vpn through vpn2, and direct uses all three through direct. Keep the same exact-rule id so each action replaces the prior shortcut.",
+      "verified_at": "2026-09-12T16:38:44.981189+03:00"
+    },
+    "vpn-smart-auto-finland": {
+      "confidence": "verified",
+      "evidence": [
+        "npx tsx --test tests/macos-mobile-relays.test.ts; public /api/user/client-xray-config?mode=smart verified both selectors"
+      ],
+      "git_head": "0e4c6618d87d86666f20a6027c405d570089de8d",
+      "key": "vpn-smart-auto-finland",
+      "kind": "production-path",
+      "locations": [
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "948621424329a3bb1799016b45e394f3a127b9583053f10ebd688623e108b8cd",
+          "path": "src/subscriptions.ts",
+          "symbol": "macosRegionTags"
+        },
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "948621424329a3bb1799016b45e394f3a127b9583053f10ebd688623e108b8cd",
+          "path": "src/subscriptions.ts",
+          "symbol": "macosXraySubscription"
+        },
+        {
+          "exists_at_verification": true,
+          "observed_kind": "file",
+          "observed_sha256": "ef2971ab875b069f913921a5fe8944094a758630f1420b374b893d7314d8a6c3",
+          "path": "tests/macos-mobile-relays.test.ts",
+          "symbol": "macOS Smart Auto offers Finland in both regional leastPing balancers"
+        }
+      ],
+      "summary": "Smart Auto builds bez-de and bez-us leastPing selectors in macosRegionTags; fi-helsinki-relay is an explicit candidate for both.",
+      "verified_at": "2026-09-15T23:42:03.757197+03:00"
+    }
+  },
+  "schema_version": 1
+}

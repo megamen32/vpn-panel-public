@@ -1,0 +1,30 @@
+# Candidate include for the server-88 ingress TPROXY chain.
+# It is not installed by router-dns and does not alter OpenWrt by itself.
+table inet telegram_transparent {
+  # tproxy to :12555 is the server-88 socket; this candidate is not installed by OpenWrt.
+  set telegram_v4 {
+    type ipv4_addr
+    flags interval
+    elements = {
+      91.105.192.0/23, 91.108.4.0/22, 91.108.8.0/22,
+      91.108.12.0/22, 91.108.16.0/22, 91.108.20.0/22,
+      91.108.56.0/22, 149.154.160.0/20, 185.76.151.0/24
+    }
+  }
+  set telegram_v6 {
+    type ipv6_addr
+    flags interval
+    elements = {
+      2001:b28:f23c::/48, 2001:b28:f23d::/48,
+      2001:b28:f23f::/48, 2001:67c:4e8::/48, 2a0a:f280::/32
+    }
+  }
+  chain prerouting {
+    type filter hook prerouting priority mangle; policy accept;
+    # policy routing is prepared separately by telegram-transparent-policy.sh
+    iifname "enp6s0" ip daddr @telegram_v4 ip protocol tcp meta mark set 0x1 tproxy ip to :12555
+    iifname "enp6s0" ip daddr @telegram_v4 ip protocol udp meta mark set 0x1 tproxy ip to :12555
+    iifname "enp6s0" ip6 daddr @telegram_v6 ip6 nexthdr tcp meta mark set 0x1 tproxy ip6 to :12555
+    iifname "enp6s0" ip6 daddr @telegram_v6 ip6 nexthdr udp meta mark set 0x1 tproxy ip6 to :12555
+  }
+}

@@ -1,0 +1,10 @@
+[Unit]
+Description=Self-heal the server-44 Codex HTTP proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=CODEX_PROXY_AUTOHEAL_SERVICE=sing-box
+ExecStart=/usr/local/lib/vpn-panel/codex-proxy-autoheal.sh
+TimeoutStartSec=2min

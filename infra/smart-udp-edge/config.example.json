@@ -1,0 +1,13 @@
+{
+  "listen_host": "0.0.0.0",
+  "listen_port": 443,
+  "edge_map_url": "https://dns.bezrabotnyi.com/edge-map",
+  "token": "replace-with-shared-edge-auth-token",
+  "upstream_port": 443,
+  "session_ttl_seconds": 300,
+  "map_cache_ttl_seconds": 30,
+  "map_timeout_seconds": 3,
+  "dns_timeout_seconds": 3,
+  "max_sessions": 4096,
+  "log_denied": false
+}

@@ -1,0 +1,12 @@
+[Unit]
+Description=Check every five minutes for due VPN transport measurements
+
+[Timer]
+OnCalendar=*:0/5
+Persistent=true
+RandomizedDelaySec=30
+Unit=target-probe-scheduler.service
+
+[Install]
+WantedBy=timers.target
+

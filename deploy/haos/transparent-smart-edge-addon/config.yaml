@@ -1,0 +1,76 @@
+name: "Bezrabotnyi Transparent Smart Edge"
+version: "0.1.23"
+slug: bezrabotnyi_transparent_smart_edge
+description: "Supervisor-managed VPN Panel SmartDNS, sing-box, and transparent TLS edge"
+url: "https://github.com/megamen32/haos-smart-edge-addons/tree/main/transparent-smart-edge"
+arch:
+  - aarch64
+startup: services
+boot: auto
+init: false
+host_network: true
+privileged:
+  - NET_ADMIN
+
+options:
+  dns_listen_host: "0.0.0.0"
+  dns_port: 1053
+  doh_port: 18053
+  edge_listen_host: "0.0.0.0"
+  edge_port: 10443
+  edge_ipv4: "192.168.2.1"
+  singbox_internal_port: 23128
+  singbox_outbound_tag: "world-auto"
+  telegram_outbound_tag: "telegram-auto"
+  require_singbox_config: false
+  telegram_tproxy_enabled: false
+  telegram_tproxy_port: 12555
+  lan_us_proxy_enabled: true
+  lan_us_proxy_port: 3127
+  lan_us_proxy_outbound_tag: "us-regional"
+  lan_de_proxy_enabled: true
+  lan_de_proxy_port: 3128
+  lan_de_proxy_outbound_tag: "de-regional"
+  lan_fi_proxy_enabled: true
+  lan_fi_proxy_port: 3129
+  lan_fi_proxy_outbound_tag: "fi-helsinki"
+  lan_ru_proxy_enabled: true
+  lan_ru_proxy_port: 3130
+  lan_ru_proxy_outbound_tag: "direct"
+  ai_route_enabled: true
+schema:
+  dns_listen_host: "str"
+  dns_port: "int(1,65535)"
+  doh_port: "int(1,65535)"
+  edge_listen_host: "str"
+  edge_port: "int(1,65535)"
+  edge_ipv4: "str"
+  singbox_internal_port: "int(1,65535)"
+  singbox_outbound_tag: "str"
+  telegram_outbound_tag: "str"
+  require_singbox_config: "bool"
+  telegram_tproxy_enabled: "bool"
+  telegram_tproxy_port: "int(1,65535)"
+  lan_us_proxy_enabled: "bool"
+  lan_us_proxy_port: "int(1,65535)"
+  lan_us_proxy_outbound_tag: "str"
+  lan_de_proxy_enabled: "bool"
+  lan_de_proxy_port: "int(1,65535)"
+  lan_de_proxy_outbound_tag: "str"
+  lan_fi_proxy_enabled: "bool"
+  lan_fi_proxy_port: "int(1,65535)"
+  lan_fi_proxy_outbound_tag: "str"
+  lan_ru_proxy_enabled: "bool"
+  lan_ru_proxy_port: "int(1,65535)"
+  lan_ru_proxy_outbound_tag: "str"
+  ai_route_enabled: "bool"
+
+panel_icon: "mdi:shield-link-variant"
+# Built and published from THIS repository by
+# .github/workflows/build-haos-addon.yaml. No tag here: the supervisor
+# rejects a tagged image in config.yaml and appends `version:` itself.
+# it here. Leaving this unset makes the supervisor build the add-on on a VM
+# with 3.7 GiB of RAM and no swap, which starves the live healthcheck badly
+# enough for the supervisor to recreate the running container. It used to
+# pin a fork's registry image, which made code changes here a silent no-op.
+image: "ghcr.io/megamen32/vpn-panel-haos-smart-edge"

@@ -1,0 +1,5 @@
+# Generated from deploy/public-ingress/topology.json by scripts/render-nginx-endpoints.mjs.
+# Consumer: HAOS recovery-Nginx public gateway. Do not edit.
+whisper.bezrabotnyi.com http://192.168.2.75:7653;
+books.bezrabotnyi.com http://192.168.2.75:32741;
+download.bezrabotnyi.com http://192.168.2.75:8000;

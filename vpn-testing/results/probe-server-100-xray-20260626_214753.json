@@ -1,0 +1,427 @@
+{
+  "timestamp": "2026-06-26T18:47:53Z",
+  "node": "server-100",
+  "network_ip": "95.165.165.65",
+  "engine": "xray",
+  "endpoints": [
+    {
+      "id": "ru-smart-relay",
+      "tcp_reachable": true,
+      "tunnel_up": true,
+      "exit_ip": "212.192.31.128",
+      "sites": [
+        {
+          "url": "chatgpt.com",
+          "http_code": 403,
+          "latency_ms": 179
+        },
+        {
+          "url": "youtube.com",
+          "http_code": 301,
+          "latency_ms": 211
+        },
+        {
+          "url": "telegram.org",
+          "http_code": 200,
+          "latency_ms": 189
+        },
+        {
+          "url": "instagram.com",
+          "http_code": 301,
+          "latency_ms": 201
+        },
+        {
+          "url": "discord.com",
+          "http_code": 200,
+          "latency_ms": 268
+        },
+        {
+          "url": "whatsapp.com",
+          "http_code": 302,
+          "latency_ms": 173
+        }
+      ],
+      "speed_mbps": 37.08,
+      "large_transfer_mbps": 63.61,
+      "large_transfer_ok": true
+    },
+    {
+      "id": "ru-full-relay",
+      "tcp_reachable": true,
+      "tunnel_up": true,
+      "exit_ip": "212.192.31.128",
+      "sites": [
+        {
+          "url": "chatgpt.com",
+          "http_code": 403,
+          "latency_ms": 195
+        },
+        {
+          "url": "youtube.com",
+          "http_code": 301,
+          "latency_ms": 217
+        },
+        {
+          "url": "telegram.org",
+          "http_code": 200,
+          "latency_ms": 214
+        },
+        {
+          "url": "instagram.com",
+          "http_code": 301,
+          "latency_ms": 209
+        },
+        {
+          "url": "discord.com",
+          "http_code": 200,
+          "latency_ms": 241
+        },
+        {
+          "url": "whatsapp.com",
+          "http_code": 302,
+          "latency_ms": 169
+        }
+      ],
+      "speed_mbps": 41.04,
+      "large_transfer_mbps": 73.2,
+      "large_transfer_ok": true
+    },
+    {
+      "id": "de-httpupgrade-fallback",
+      "tcp_reachable": true,
+      "tunnel_up": true,
+      "exit_ip": "212.192.31.128",
+      "sites": [
+        {
+          "url": "chatgpt.com",
+          "http_code": 403,
+          "latency_ms": 403
+        },
+        {
+          "url": "youtube.com",
+          "http_code": 301,
+          "latency_ms": 327
+        },
+        {
+          "url": "telegram.org",
+          "http_code": 200,
+          "latency_ms": 618
+        },
+        {
+          "url": "instagram.com",
+          "http_code": 301,
+          "latency_ms": 449
+        },
+        {
+          "url": "discord.com",
+          "http_code": 200,
+          "latency_ms": 499
+        },
+        {
+          "url": "whatsapp.com",
+          "http_code": 302,
+          "latency_ms": 276
+        }
+      ],
+      "speed_mbps": 24.62,
+      "large_transfer_mbps": 68.37,
+      "large_transfer_ok": true
+    },
+    {
+      "id": "de-direct-ws",
+      "tcp_reachable": true,
+      "tunnel_up": true,
+      "exit_ip": "212.192.31.128",
+      "sites": [
+        {
+          "url": "chatgpt.com",
+          "http_code": 403,
+          "latency_ms": 296
+        },
+        {
+          "url": "youtube.com",
+          "http_code": 301,
+          "latency_ms": 306
+        },
+        {
+          "url": "telegram.org",
+          "http_code": 200,
+          "latency_ms": 500
+        },
+        {
+          "url": "instagram.com",
+          "http_code": 301,
+          "latency_ms": 344
+        },
+        {
+          "url": "discord.com",
+          "http_code": 200,
+          "latency_ms": 479
+        },
+        {
+          "url": "whatsapp.com",
+          "http_code": 302,
+          "latency_ms": 270
+        }
+      ],
+      "speed_mbps": 22.57,
+      "large_transfer_mbps": 61.51,
+      "large_transfer_ok": true
+    },
+    {
+      "id": "de-xhttp-fallback",
+      "tcp_reachable": true,
+      "tunnel_up": true,
+      "exit_ip": "212.192.31.128",
+      "sites": [
+        {
+          "url": "chatgpt.com",
+          "http_code": 403,
+          "latency_ms": 396
+        },
+        {
+          "url": "youtube.com",
+          "http_code": 301,
+          "latency_ms": 268
+        },
+        {
+          "url": "telegram.org",
+          "http_code": 200,
+          "latency_ms": 438
+        },
+        {
+          "url": "instagram.com",
+          "http_code": 301,
+          "latency_ms": 295
+        },
+        {
+          "url": "discord.com",
+          "http_code": 0,
+          "latency_ms": 74
+        },
+        {
+          "url": "whatsapp.com",
+          "http_code": 302,
+          "latency_ms": 243
+        }
+      ],
+      "speed_mbps": 18.76,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-grpc-fallback",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-cdn-fallback",
+      "tcp_reachable": true,
+      "tunnel_up": true,
+      "exit_ip": "212.192.31.128",
+      "sites": [
+        {
+          "url": "chatgpt.com",
+          "http_code": 403,
+          "latency_ms": 309
+        },
+        {
+          "url": "youtube.com",
+          "http_code": 301,
+          "latency_ms": 324
+        },
+        {
+          "url": "telegram.org",
+          "http_code": 200,
+          "latency_ms": 330
+        },
+        {
+          "url": "instagram.com",
+          "http_code": 301,
+          "latency_ms": 295
+        },
+        {
+          "url": "discord.com",
+          "http_code": 200,
+          "latency_ms": 478
+        },
+        {
+          "url": "whatsapp.com",
+          "http_code": 302,
+          "latency_ms": 280
+        }
+      ],
+      "speed_mbps": 23.86,
+      "large_transfer_mbps": 54.27,
+      "large_transfer_ok": true
+    },
+    {
+      "id": "de-cdn2-fallback",
+      "tcp_reachable": true,
+      "tunnel_up": true,
+      "exit_ip": "212.192.31.128",
+      "sites": [
+        {
+          "url": "chatgpt.com",
+          "http_code": 403,
+          "latency_ms": 416
+        },
+        {
+          "url": "youtube.com",
+          "http_code": 301,
+          "latency_ms": 426
+        },
+        {
+          "url": "telegram.org",
+          "http_code": 200,
+          "latency_ms": 380
+        },
+        {
+          "url": "instagram.com",
+          "http_code": 301,
+          "latency_ms": 307
+        },
+        {
+          "url": "discord.com",
+          "http_code": 200,
+          "latency_ms": 509
+        },
+        {
+          "url": "whatsapp.com",
+          "http_code": 302,
+          "latency_ms": 285
+        }
+      ],
+      "speed_mbps": 17.48,
+      "large_transfer_mbps": 58.37,
+      "large_transfer_ok": true
+    },
+    {
+      "id": "de-direct",
+      "tcp_reachable": true,
+      "tunnel_up": true,
+      "exit_ip": "212.192.31.128",
+      "sites": [
+        {
+          "url": "chatgpt.com",
+          "http_code": 403,
+          "latency_ms": 237
+        },
+        {
+          "url": "youtube.com",
+          "http_code": 301,
+          "latency_ms": 261
+        },
+        {
+          "url": "telegram.org",
+          "http_code": 0,
+          "latency_ms": 8001
+        },
+        {
+          "url": "instagram.com",
+          "http_code": 0,
+          "latency_ms": 8002
+        },
+        {
+          "url": "discord.com",
+          "http_code": 0,
+          "latency_ms": 8000
+        },
+        {
+          "url": "whatsapp.com",
+          "http_code": 0,
+          "latency_ms": 8000
+        }
+      ],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "de-xhttp-h2",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "us-reality",
+      "tcp_reachable": true,
+      "tunnel_up": true,
+      "exit_ip": "185.240.120.152",
+      "sites": [
+        {
+          "url": "chatgpt.com",
+          "http_code": 403,
+          "latency_ms": 930
+        },
+        {
+          "url": "youtube.com",
+          "http_code": 301,
+          "latency_ms": 1155
+        },
+        {
+          "url": "telegram.org",
+          "http_code": 200,
+          "latency_ms": 1710
+        },
+        {
+          "url": "instagram.com",
+          "http_code": 301,
+          "latency_ms": 1330
+        },
+        {
+          "url": "discord.com",
+          "http_code": 200,
+          "latency_ms": 1660
+        },
+        {
+          "url": "whatsapp.com",
+          "http_code": 302,
+          "latency_ms": 936
+        }
+      ],
+      "speed_mbps": 5.61,
+      "large_transfer_mbps": 6.24,
+      "large_transfer_ok": true
+    },
+    {
+      "id": "us-httpupgrade",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "us-ws",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    },
+    {
+      "id": "us-xhttp-h2",
+      "tcp_reachable": true,
+      "tunnel_up": false,
+      "exit_ip": "",
+      "sites": [],
+      "speed_mbps": 0,
+      "large_transfer_mbps": 0,
+      "large_transfer_ok": false
+    }
+  ]
+}

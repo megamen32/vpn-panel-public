@@ -1,0 +1,34 @@
+[Unit]
+Description=Measure every configured VPN endpoint, including those outside subscriptions
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=roomhacker
+Group=roomhacker
+WorkingDirectory=/home/roomhacker/apps/vpn-panel
+UMask=0077
+Environment=HEALTH_APPLY_PROFILES=0
+# The diagnostic view returns every enabled endpoint assigned to a client,
+# which is what makes the endpoints held out of subscriptions measurable at all.
+Environment=DIAGNOSTIC_SUBSCRIPTION=1
+Environment=TARGETS=lan-server44
+Environment=PROFILE=health
+Environment=RENDER_TEST_PLAN=1
+Environment=VPN_TEST_PLAN=/home/roomhacker/apps/vpn-panel/vpn-testing/results/health-plan.json
+Environment=REMOTE_TELEMETRY_DISABLED=1
+# Measuring the whole catalog takes roughly twice the subscription run, so it
+# needs its own remote budget rather than the default the narrow run survives on.
+Environment=REMOTE_RUN_TIMEOUT_SECONDS=1200
+Environment=VPN_PANEL_SCRIPT_DIR=/home/roomhacker/apps/vpn-panel/scripts
+Environment=VPN_NETWORK_TEST_SCRIPT=/usr/local/lib/vpn-panel/run-network-test.sh
+Environment=REMOTE_WORK_ROOT=/home/roomhacker/apps/vpn-panel/.tmp
+# Separate results directory so this wider run and the recurring one cannot
+# adopt each other's artifact while sharing a single profile name.
+Environment=RESULTS_DIR=/home/roomhacker/apps/vpn-panel/vpn-testing/results/explore
+ExecStart=/usr/local/lib/vpn-panel/auto-endpoint-check.sh
+TimeoutStartSec=25min
+LogNamespace=application
+StandardOutput=journal
+StandardError=journal

@@ -1,0 +1,11 @@
+[Unit]
+Description=Continuously monitor USB ADB for the Samsung VPN benchmark device
+
+[Timer]
+OnBootSec=15s
+OnUnitActiveSec=30s
+AccuracySec=5s
+Persistent=true
+
+[Install]
+WantedBy=timers.target
