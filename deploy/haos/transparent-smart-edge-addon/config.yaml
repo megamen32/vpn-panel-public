@@ -73,4 +73,4 @@ panel_icon: "mdi:shield-link-variant"
 # with 3.7 GiB of RAM and no swap, which starves the live healthcheck badly
 # enough for the supervisor to recreate the running container. It used to
 # pin a fork's registry image, which made code changes here a silent no-op.
-image: "ghcr.io/megamen32/vpn-panel-haos-smart-edge"
+image: "ghcr.io/megamen32/vpn-panel-public-haos-smart-edge"

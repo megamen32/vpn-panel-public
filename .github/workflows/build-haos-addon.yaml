@@ -22,7 +22,8 @@ permissions:
 env:
   APP_PATH: deploy/haos/transparent-smart-edge-addon
   ARCHITECTURES: '["aarch64"]'
-  IMAGE_NAME: vpn-panel-haos-smart-edge
+  # The public mirror cannot publish into the private repository's GHCR packages.
+  IMAGE_NAME: vpn-panel-public-haos-smart-edge
   REGISTRY_PREFIX: ghcr.io/megamen32
 
 jobs:
